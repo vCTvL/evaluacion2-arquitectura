@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+    <link rel="stylesheet" href="/login.css">
+</head>
+<body>
+     <nav class="navbar-mipc">
+        <span class="navbar-title">Clínica Médica Harimoto </span>
+        <div>
+            <a href="/"><button class="btn" style="margin-right:10px;">Iniciar sesión</button></a>
+            <a href="/register"><button class="btn">Registrarse</button></a>
+        </div>
+    </nav>
+    <div class="main-container">
+        <div class="auth-container">
+            <h1>Iniciar Sesión</h1>
+            <p class="error escondido">Error al iniciar sesión</p>
+            <form id="login-form">
+                <label for="user">Nombre del paciente</label>
+                <input type="text" name="user" id="user" placeholder="Nombre del paciente" required>
+                
+                <label for="pass">Contraseña</label>
+                <input type="password" name="password" id="pass" placeholder="Contraseña" required>
+                
+                <button type="submit" class="btn">Iniciar Sesión</button>
+            </form>
+            <p style="text-align: center; margin-top: 1rem;">¿No tienes cuenta? <a href="/register" class="link">Regístrate</a></p>
+        </div>
+    </div>
+    <footer class="footer-mipc">
+        <span>&copy; Clínica Médica Harimoto. Todos los derechos reservados.</span>
+    </footer>
+    <script src="/login.js"></script>
+</body>
+</html>

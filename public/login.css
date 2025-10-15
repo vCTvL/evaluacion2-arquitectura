@@ -1,0 +1,163 @@
+/* Reset básico */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilo general del body */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f4f8;
+    color: #1e3a8a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding-bottom: 60px; /* Para que el contenido no quede tapado por el footer fijo */
+    min-height: 100vh;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    display: flex;
+    height: auto;
+    padding-bottom: 0;
+}
+
+/* Contenedor principal */
+.main-container {
+    background-color: rgb(255, 255, 255);
+    padding: 40px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    width: 50%;
+    max-width: 400px;
+    flex: 1 1 0;
+    margin: 210px ;
+    
+}
+
+/* Título */
+.auth-container h1 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #1d4ed8;
+    font-size: 24px;
+}
+
+/* Errores */
+.error {
+    color: #dc2626;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.escondido {
+    display: none;
+}
+
+/* Estilo de formulario */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Etiquetas */
+label {
+    margin-bottom: 5px;
+    font-weight: 500;
+    font-size: 14px;
+    color: #334155;
+}
+
+/* Inputs */
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border 0.3s ease;
+}
+
+input:focus {
+    border-color: #60a5fa;
+    outline: none;
+}
+
+/* Botón */
+.btn {
+    background-color: #3b82f6;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.btn:hover {
+    background-color: #2563eb;
+    box-shadow: 0 6px 15px rgba(59, 130, 246, 0.4);
+}
+
+/* Link a registro */
+.link {
+    color: #3b82f6;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.link:hover {
+    color: #1d4ed8;
+}
+
+/* Navbar fijo arriba */
+.navbar-mipc {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 56px;
+    background-color: #1e3a8a;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Título a la izquierda, botón a la derecha */
+    padding: 0 32px 0 24px;
+    font-weight: 700;
+    font-size: 20px;
+    z-index: 300;
+    box-sizing: border-box;
+}
+
+.navbar-title {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-right: 32px;
+}
+
+/* Footer al fondo, solo visible al final, nunca tapa contenido */
+.footer-mipc {
+    width: 100%;
+    background: #1e3a8a;
+    color: white;
+    text-align: center;
+    padding: 18px 0 14px 0;
+    font-size: 15px;
+    font-weight: 400;
+    position: relative;
+    left: 0;
+    bottom: 0;
+    z-index: 200;
+    margin-top: 40px;
+}
+
+/* Para asegurar que el footer quede al fondo si hay poco contenido */
