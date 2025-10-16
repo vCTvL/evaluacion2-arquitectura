@@ -23,6 +23,8 @@ document.getElementById("login-form").addEventListener("submit", async (e)=>{
     if (!res.ok) return mensajeError.classList.toggle("escondido",false);
     const resJson = await res.json();
     if(resJson.redirect){
+        // Guardar el token
+        localStorage.setItem('token', resJson.token);
         window.location.href = resJson.redirect;
     }
 

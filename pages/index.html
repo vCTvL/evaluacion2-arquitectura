@@ -1,11 +1,96 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Clínica Salud Integral</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
 </head>
 <body>
+    <!-- Barra de navegación lateral -->
+    <nav class="navbar">
+        <div class="logo">
+            <h1>Clínica Salud Integral</h1>
+            <p>Tu salud, nuestra prioridad</p>
+        </div>
+        
+        <ul class="nav-links">
+            <li>
+                <a href="#" id="nav-home">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" id="nav-agendar">
+                    <i class="fas fa-calendar-plus"></i>
+                    <span>Agendar Hora</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" id="nav-cancelar">
+                    <i class="fas fa-calendar-times"></i>
+                    <span>Cancelar Hora</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" id="nav-horarios">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Ver mis Horarios</span>
+                </a>
+            </li>
+        </ul>
+        
+        <div class="logout">
+            <a href="#" class="nav-link">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Cerrar sesión</span>
+            </a>
+        </div>
+    </nav>
     
+    <!-- Contenido principal -->
+    <main class="main-content">
+        <div class="header">
+            <h2>Bienvenido a tu panel de paciente</h2>
+            <button id="btn-user-info" class="btn">
+                <i class="fas fa-user"></i> 
+                Info Usuario
+            </button>
+        </div>
+        <div id="dynamic-form-container"></div>
+        <div class="dashboard">
+            <div class="card appointment-card">
+                <h3>Próxima cita</h3>
+                <p>Tienes una cita programada con el <strong>Dr. Roberto Silva</strong> en el área de <strong>Pediatría</strong> para el día <strong>15 de noviembre a las 10:30 AM</strong>.</p>
+                <a href="#" class="btn">Ver detalles</a>
+            </div>
+            
+            <div class="card specialists-card">
+                <h3>Especialistas disponibles</h3>
+                <p>Contamos con más de 15 especialidades médicas. Encuentra el especialista que necesitas y agenda tu cita.</p>
+                <a href="#" class="btn">Ver especialistas</a>
+            </div>
+            
+            <div class="card history-card">
+                <h3>Historial médico</h3>
+                <p>Revisa tu historial de consultas, tratamientos y resultados de exámenes en un solo lugar.</p>
+                <a href="#" class="btn">Acceder al historial</a>
+            </div>
+            
+            <div class="card info-card">
+                <h3>Información de contacto</h3>
+                <p>Dirección: Av. Principal 1234, Santiago<br>
+                   Teléfono: +56 2 2345 6789<br>
+                   Horario: Lunes a Viernes 8:00 - 20:00</p>
+                <a href="#" class="btn">Contactar</a>
+            </div>
+        </div>
+    </main>
 </body>
+<footer class="footer">
+    <p>&copy; 2024 Clínica Salud Integral. Todos los derechos reservados.</p>
+</footer>
+<script src="/app.js"></script>
 </html>
