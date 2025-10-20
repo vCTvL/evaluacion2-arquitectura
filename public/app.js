@@ -67,8 +67,13 @@ document.addEventListener("DOMContentLoaded", async () => {
                     ${options(especialistas)}
                 </select>        
             </label>
-            <label>Fecha: <input type="date" required></label>
-            <label>Hora: <input type="time" required></label>
+            <label>Fecha: <input type="date" id="input-fecha" required></label>
+            <!-- Nuevo: select de horarios disponible según especialista/fecha -->
+            <label>Horario:
+                <select id="select-horario" required disabled>
+                    <option value="">Seleccione un horario</option>
+                </select>
+            </label>
             <button type="submit" class="btn">Agendar</button>
         </form>
         `;
@@ -160,16 +165,73 @@ document.addEventListener("DOMContentLoaded", async () => {
             setTimeout(() => {
                 const form = container.querySelector('form');
                 if (form) {
+                    const selectEspecialista = form.querySelector('#select-especialista');
+                    const selectHorario = form.querySelector('#select-horario');
+                    const inputFecha = form.querySelector('#input-fecha');
+
+                    // Función para cargar horarios disponibles del especialista (y filtrar por fecha si hay)
+                    async function cargarHorarios() {
+                        const especialista = selectEspecialista.value;
+                        if (!especialista) {
+                            selectHorario.innerHTML = `<option value="">Seleccione un horario</option>`;
+                            selectHorario.disabled = true;
+                            return;
+                        }
+
+                        try {
+                            const res = await fetch(`/api/horarios-especialista?especialista=${encodeURIComponent(especialista)}`, {
+                                headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+                            });
+                            const data = await res.json();
+                            if (!res.ok) {
+                                selectHorario.innerHTML = `<option value="">No hay horarios</option>`;
+                                selectHorario.disabled = true;
+                                return;
+                            }
+
+                            // Si hay una fecha seleccionada, filtramos por esa fecha
+                            const fechaSeleccionada = inputFecha.value; // '' o 'YYYY-MM-DD'
+                            const slots = (data.slots || []).filter(s => {
+                                if (!fechaSeleccionada) return true;
+                                return s.fecha === fechaSeleccionada;
+                            });
+
+                            if (slots.length === 0) {
+                                selectHorario.innerHTML = `<option value="">No hay horarios disponibles</option>`;
+                                selectHorario.disabled = true;
+                                return;
+                            }
+
+                            selectHorario.disabled = false;
+                            selectHorario.innerHTML = `<option value="">Seleccione un horario</option>` + slots.map(s => {
+                                // value: "YYYY-MM-DD|HH:MM"
+                                return `<option value="${s.fecha}|${s.hora}">${s.fecha} - ${s.hora}</option>`;
+                            }).join('');
+                        } catch (err) {
+                            console.error('Error cargando horarios:', err);
+                            selectHorario.innerHTML = `<option value="">Error cargando horarios</option>`;
+                            selectHorario.disabled = true;
+                        }
+                    }
+
+                    // cargar horarios al cambiar especialista o fecha
+                    selectEspecialista.addEventListener('change', cargarHorarios);
+                    inputFecha.addEventListener('change', cargarHorarios);
+
                     form.addEventListener('submit', async function(ev) {
                         ev.preventDefault();
                         // Obtener valores del formulario
                         const especialidad = form.querySelector('#select-especialidad').value;
                         const especialista = form.querySelector('#select-especialista').value;
-                        const fecha = form.querySelector('input[type="date"]').value;
-                        const hora = form.querySelector('input[type="time"]').value;
+                        const horario = form.querySelector('#select-horario').value; // formato: "YYYY-MM-DD|HH:MM"
+                        if (!horario) {
+                            alert('Seleccione un horario válido');
+                            return;
+                        }
+                        const [fecha, hora] = horario.split('|');
 
                         try {
-                            // Enviar datos al backend
+                            // Enviar datos al backend (hora se envía como "HH:MM" y backend la almacenará sin :)
                             const response = await fetch('/api/citas', {
                                 method: 'POST',
                                 headers: {
@@ -224,7 +286,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                             document.getElementById('cerrar-modal').onclick = () => {
                                 document.body.removeChild(modal);
                                 if (response.ok) {
-                                    // Recargar la página o actualizar la lista de citas
                                     window.location.reload();
                                 }
                             };
